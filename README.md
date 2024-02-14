@@ -1,30 +1,35 @@
-# mu-project
+# VLAG POC Backend
+## Getting Started
+### Installation
+1. `cp .env.example .env`
+2. `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d`
 
-Bootstrap a mu.semte.ch microservices environment in three easy steps.
+### Update the triplestore
+1. Run the following command:
+```
+curl -v   POST http://localhost/example-stream?resource=https://example.org/person/80325 \
+   -H "Content-Type: application/ld+json" \
+   -d '{"@context":"https://json-ld.org/contexts/person.jsonld","@id":"https://example.org/person/80325","@type":"Person","name":"John Lennon","born":"2040-10-09","spouse":"http://dbpedia.org/resource/Cynthia_Lennon"}'
+```
+2. Wait for 30 seconds
+3. Go to `http://localhost:8890/sparql`
+4. Run the following sparql query (You should have John Lennon and his wife in resource):
+```sparql
+select * where {
+   graph <http://mu.semte.ch/application>{
+       ?s ?p ?o
+   }
+}
+```
+5. Now let's update John Lennon to Bob Dylan:
+```
+curl -v   POST http://localhost/example-stream?resource=https://example.org/person/80325 \
+   -H "Content-Type: text/turtle" \
+   -d '<https://example.org/person/80325> <http://xmlns.com/foaf/0.1/name> "Bob Dylan".'
+```
+6. Wait for 30 seconds
+7. Execute the same sparql query as above. You should see Bob Dylan in the triplestore now.
 
-## Quickstart an mu-project
-
-> [INFO]
-> This project was created by running `mu project new awesome-project-name`.  If read on GitHub under mu-semtech/mu-project then it is the template repository for a new project, use `mu project new` instead.
-
-Setting up your environment is done in three easy steps:
-1. First configure the running microservices and their names in `docker-compose.yml`
-2. Then, configure how requests are dispatched in `config/dispatcher.ex`
-3. Lastly, simply start the docker-compose.
-
-### Hooking things up with docker-compose
-
-Alter the `docker-compose.yml` file so it contains all microservices you need.  The example content should be clear, but you can find more information in the [Docker Compose documentation](https://docs.docker.com/compose/).  Don't remove the `identifier` and `db` container, they are respectively the entry-point and the database of your application.  Don't forget to link the necessary microservices to the dispatcher and the database to the microservices.
-
-### Configure the dispatcher
-
-Next, alter the file `config/dispatcher/dispatcher.ex` based on the example that is there by default.  Dispatch requests to the necessary microservices based on the names you used for the microservice.
-
-### Boot up the system
-
-Boot your microservices-enabled system using docker-compose.
-
-    cd /path/to/mu-project
-    docker-compose up
-
-You can shut down using `docker-compose stop` and remove everything using `docker-compose rm`.
+### Check the LDES feed
+- Navigate to `http://localhost/example-stream/1`
+You should see the history of updates made to the triplestore in the LDES feed. 
