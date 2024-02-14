@@ -12,7 +12,7 @@ defmodule Dispatcher do
   @json %{ accept: %{ json: true } }
   @html %{ accept: %{ html: true } }
 
-  define_layers [ :static, :services, :fall_back, :not_found ]
+  define_layers [ :static, :services, :not_found ]
 
 ##############################################
 # LDES STREAM
