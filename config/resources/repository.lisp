@@ -21,8 +21,9 @@
 
 ;; (add-prefix "dcat" "http://www.w3.org/ns/dcat#")
 ;; (add-prefix "dct" "http://purl.org/dc/terms/")
-;; (add-prefix "skos" "http://www.w3.org/2004/02/skos/core#")
-
+(add-prefix "skos" "http://www.w3.org/2004/02/skos/core#")
+(add-prefix "geo" "https://www.w3.org/2003/01/geo/")
+(add-prefix "mobiliteit" "https://data.vlaanderen.be/ns/mobiliteit#")
 
 ;;;;;
 ;; You can use the ext: prefix when you're still searching for
