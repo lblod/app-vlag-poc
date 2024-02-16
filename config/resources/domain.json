@@ -9,19 +9,17 @@
         "image": {
           "type": "string",
           "predicate": "mobiliteit:grafischeWeergave"
+        },
+        "label": {
+          "type": "string",
+          "predicate": "skos:prefLabel"
         }
       },
-      "relationships": {
-        "geocoordinates": {
-          "predicate": "ext:hasLocation",
-          "target": "geocoordinates",
-          "cardinality": "one"
-        }
-      },
+      "relationships": {},
       "new-resource-base": "http://data.lblod.info/traffic-sign-concepts/"
     },
-    "geocoordinates": {
-      "name": "geoCoordinates",
+    "geo-points": {
+      "name": "geoPoint",
       "class": "geo:Point",
       "attributes": {
         "latitude": {
@@ -40,7 +38,7 @@
           "cardinality": "many"
         }
       },
-      "new-resource-base": "http://data.lblod.info/locations/"
+      "new-resource-base": "http://data.lblod.info/geo-points/"
     }
   }
 }

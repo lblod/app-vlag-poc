@@ -37,8 +37,8 @@ defmodule Dispatcher do
     forward conn, path, "http://resource/themes/"
   end
 
-  get "/geocoordinates/*path", %{ accept: [:any], layer: :services} do
-    Proxy.forward conn, path, "http://resource/geocoordinates/"
+  get "/geo-points/*path", %{ accept: [:any], layer: :services} do
+    Proxy.forward conn, path, "http://resource/geo-points/"
   end
 
   get "/road-sign-concepts/*path", %{ accept: [:any], layer: :services} do
