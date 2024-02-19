@@ -3,7 +3,6 @@
   "prefixes": {},
   "resources": {
     "road-sign-concepts": {
-      "name": "roadSignConcept",
       "class": "mobiliteit:Verkeersbordconcept",
       "attributes": {
         "image": {
@@ -19,7 +18,6 @@
       "new-resource-base": "http://data.lblod.info/traffic-sign-concepts/"
     },
     "geopoints": {
-      "name": "geoPoint",
       "class": "geo:Point",
       "attributes": {
         "latitude": {
@@ -32,7 +30,7 @@
         }
       },
       "relationships": {
-        "roadSignConcepts": {
+        "signs": {
           "predicate": "ext:hasSign",
           "target": "road-sign-concepts",
           "cardinality": "many"
