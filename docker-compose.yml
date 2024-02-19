@@ -60,7 +60,8 @@ services:
   consumer:
     image: redpencil/ldes-consumer
     environment:
-      CRON_PATTERN: "*/30 * * * * *"
+      CRON_PATTERN: "*/15 * * * * *"
       LDES_STREAM: http://producer/example-stream
       LDES_ENDPOINT_VIEW: http://producer/example-stream/1
       MU_SPARQL_ENDPOINT: "http://triplestore:8890/sparql"
+      MU_APPLICATION_GRAPH: "http://mu.semte.ch/graphs/public"
