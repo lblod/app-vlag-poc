@@ -18,7 +18,7 @@
       "relationships": {},
       "new-resource-base": "http://data.lblod.info/traffic-sign-concepts/"
     },
-    "geo-points": {
+    "geopoints": {
       "name": "geoPoint",
       "class": "geo:Point",
       "attributes": {
