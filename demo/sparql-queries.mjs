@@ -1,12 +1,13 @@
 export const DEFAULT_SIGNS = [
-  "http://data.lblod.info/traffic-sign-concepts/618EDA887BD6C8000800000B",
-  "http://data.lblod.info/traffic-sign-concepts/64395F6F94519A619E4412C9",
-  "http://data.lblod.info/traffic-sign-concepts/643C1C2794519A619E4412CC",
-  "http://data.vlaanderen.be/id/concept/Verkeersbordconcept/0b8edba107bc181f01ea9fcf241c76f6befff04e15a697acf1c6cdeb49e71868",
-  "http://data.vlaanderen.be/id/concept/Verkeersbordconcept/0c471075e7f9f4f6b5c12abf3ed2acb4b1c2dd17545671ae2359ac2e9d524647",
-  "http://data.vlaanderen.be/id/concept/Verkeersbordconcept/1027d42a7b5eaa16b31d3da9c8c4ae75fd1100a2e26119037070373bc9709edc",
-  "http://data.vlaanderen.be/id/concept/Verkeersbordconcept/10e42121244614faee3f458e4b74c2b84bc54ecf6a79583e81de8420aba2f147",
-  "http://data.vlaanderen.be/id/concept/Verkeersbordconcept/14d5a8165d331e00e2f669abca60e2db5df7d28973bf15e5fd3ea4cfa575a0a1",
+  // "http://data.lblod.info/traffic-sign-concepts/618EDA887BD6C8000800000B",
+  // "http://data.lblod.info/traffic-sign-concepts/64395F6F94519A619E4412C9",
+  // "http://data.lblod.info/traffic-sign-concepts/643C1C2794519A619E4412CC",
+  // "http://data.vlaanderen.be/id/concept/Verkeersbordconcept/0b8edba107bc181f01ea9fcf241c76f6befff04e15a697acf1c6cdeb49e71868",
+  // "http://data.vlaanderen.be/id/concept/Verkeersbordconcept/0c471075e7f9f4f6b5c12abf3ed2acb4b1c2dd17545671ae2359ac2e9d524647",
+  // "http://data.vlaanderen.be/id/concept/Verkeersbordconcept/1027d42a7b5eaa16b31d3da9c8c4ae75fd1100a2e26119037070373bc9709edc",
+  // "http://data.vlaanderen.be/id/concept/Verkeersbordconcept/10e42121244614faee3f458e4b74c2b84bc54ecf6a79583e81de8420aba2f147",
+  // "http://data.vlaanderen.be/id/concept/Verkeersbordconcept/14d5a8165d331e00e2f669abca60e2db5df7d28973bf15e5fd3ea4cfa575a0a1",
+  "http://data.lblod.info/verkeersbordconcepten/6167DBE6A40DDE0009000002",
 ];
 
 export const LDES_DATA_FEED_TEMPL = `
@@ -18,6 +19,26 @@ export const LDES_DATA_FEED_TEMPL = `
     <http://data.lblod.info/geo-points/#uuid>     <http://mu.semte.ch/vocabularies/ext/hasSign> <#sign>.
 `;
 
+export const MAKE_OBJECT_FROM_VERSION = `
+
+delete {
+	graph <http://mu.semte.ch/graphs/public> {
+	   ?x ?y ?z.
+	}
+}
+insert {
+	graph <http://mu.semte.ch/graphs/public> {
+	   ?x ?p ?o
+	}
+}
+where {
+	graph <http://mu.semte.ch/graphs/ldes> {
+	  ?s <http://purl.org/dc/terms/isVersionOf> ?x; ?p ?o.
+	  filter (?p != <http://purl.org/dc/terms/isVersionOf>)
+	  optional {graph <http://mu.semte.ch/graphs/public> {?x ?y ?z.} }
+	}
+}
+`;
 export const INSERT_MOW_QUERY = `
 prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 prefix mobiliteit:	<https://data.vlaanderen.be/ns/mobiliteit#> 

@@ -5,6 +5,7 @@ import {
   DEFAULT_SIGNS,
   INSERT_MOW_QUERY,
   LDES_DATA_FEED_TEMPL,
+  MAKE_OBJECT_FROM_VERSION,
 } from "./sparql-queries.mjs";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -43,8 +44,24 @@ async function feed_ldes() {
     console.log("sleep 5s");
     await sleep(5000); // wait 5secs
   }
+  while (true) {
+    console.log("making object...");
+    await make_object_from_version();
+    sleep(5000);
+  }
 }
-
+async function make_object_from_version() {
+  const data = new FormData();
+  data.append("query", MAKE_OBJECT_FROM_VERSION);
+  const resp = await fetch("http://localhost:8890/sparql", {
+    method: "POST",
+    body: data,
+  });
+  if (resp.status != 200) {
+    const text = await response.text();
+    throw "could not make object: " + text;
+  }
+}
 async function init_mow() {
   const data = new FormData();
   data.append("query", INSERT_MOW_QUERY);
