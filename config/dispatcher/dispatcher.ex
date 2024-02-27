@@ -45,6 +45,22 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource/road-sign-concepts/"
   end
 
+##############################################
+# METIS
+##############################################
+
+  get "/uri-info/*path", %{ accept: %{ json: true } } do
+    forward conn, path, "http://uri-info/"
+  end
+
+  get "/resource-labels/*path", %{ accept: %{ json: true } } do
+    forward conn, path, "http://resource-labels-cache/"
+  end
+
+  get "/resource-labels/*path" do
+    Proxy.forward conn, path, "http://resource-labels/"
+  end
+
   match "/*_", %{ layer: :not_found } do
     send_resp( conn, 404, "Route not found.  See config/dispatcher.ex" )
   end
