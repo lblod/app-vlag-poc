@@ -65,3 +65,14 @@ services:
       LDES_ENDPOINT_VIEW: http://producer/example-stream/1
       MU_SPARQL_ENDPOINT: "http://triplestore:8890/sparql"
       MU_APPLICATION_GRAPH: "http://mu.semte.ch/graphs/ldes"
+
+  # Metis
+  uri-info:
+    image: redpencil/mu-uri-info-service:0.2.1
+  resource-labels-cache:
+    image: semtech/mu-cache:2.0.2
+    links:
+      - resource-labels:backend
+  resource-labels:
+    image: lblod/resource-label-service:0.3.2
+>>>>>>> feature/demo1
