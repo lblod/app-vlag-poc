@@ -64,4 +64,4 @@ services:
       LDES_STREAM: http://producer/example-stream
       LDES_ENDPOINT_VIEW: http://producer/example-stream/1
       MU_SPARQL_ENDPOINT: "http://triplestore:8890/sparql"
-      MU_APPLICATION_GRAPH: "http://mu.semte.ch/graphs/public"
+      MU_APPLICATION_GRAPH: "http://mu.semte.ch/graphs/ldes"
