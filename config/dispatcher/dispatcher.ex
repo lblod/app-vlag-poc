@@ -61,6 +61,18 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource-labels/"
   end
 
+    ###############
+  # SPARQL
+  ###############
+  match "/sparql", %{ layer: :sparql, accept: %{ html: true } } do
+    forward conn, [], "http://frontend/sparql"
+  end
+
+  match "/sparql", %{ layer: :sparql, accept: %{ sparql: true } } do
+    forward conn, [], "http://database:8890/sparql"
+  end
+
+
   match "/*_", %{ layer: :not_found } do
     send_resp( conn, 404, "Route not found.  See config/dispatcher.ex" )
   end
