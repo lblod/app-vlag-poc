@@ -4,7 +4,7 @@ defmodule Dispatcher do
     html: [ "text/html", "application/xhtml+html" ],
     json: [ "application/json", "application/vnd.api+json" ],
     upload: ["multipart/form-data"],
-    sparql_json: ["application/sparql-results+json"],
+    sparql: ["application/sparql-results+json"],
     any: [ "*/*" ],
   ]
 
@@ -12,7 +12,7 @@ defmodule Dispatcher do
   @json %{ accept: %{ json: true } }
   @html %{ accept: %{ html: true } }
 
-  define_layers [ :static, :services, :not_found ]
+  define_layers [ :static, :sparql, :services, :not_found ]
 
   options "/*path", _ do
     conn
@@ -61,9 +61,10 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource-labels/"
   end
 
-    ###############
-  # SPARQL
-  ###############
+##############################################
+# SPARQL
+##############################################
+
   match "/sparql", %{ layer: :sparql, accept: %{ html: true } } do
     forward conn, [], "http://frontend/sparql"
   end
