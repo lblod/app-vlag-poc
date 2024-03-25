@@ -75,3 +75,13 @@ services:
       - resource-labels:backend
   resource-labels:
     image: lblod/resource-label-service:0.3.2
+
+  frontend:
+    image: andreo141/frontend-vlag-poc
+    environment:
+      EMBER_METIS_BASE_URL: "http://data.lblod.info/"
+    links:
+      - identifier:backend
+    labels:
+      - "logging=true"
+    restart: always
